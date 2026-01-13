@@ -1,0 +1,25 @@
+---
+- name: Vault Operator Init
+  command: vault operator init -key-shares=1 -key-threshold=1
+  register: vault_init
+  environment:
+    VAULT_ADDR: "https://{{ fqdn }}:{{ vault_port }}"
+    VAULT_CACERT: "{{ vault_tls_certs_path }}/{{ vault_tls_ca_file }}"
+
+- name: Permanently set VAULT ENV vars for root
+  lineinfile:
+    path: /root/.bashrc
+    line: "export {{ item.key }}={{ item.value }}"
+    regexp: '^export {{ item.key }}='
+    create: true
+  loop:
+    - key: VAULT_ADDR
+      value: "https://{{ fqdn }}:{{ vault_port }}"
+    - key: VAULT_CACERT
+      value: "{{ vault_tls_certs_path }}/{{ vault_tls_ca_file }}"
+
+- name: Save Key Output Locally
+  copy:
+    content: "{{ vault_init.stdout }}"
+    dest: "{{ vault_token_out_file_path }}"
+  delegate_to: localhost

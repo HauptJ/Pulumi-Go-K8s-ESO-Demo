@@ -1,0 +1,7 @@
+collections:
+
+roles:
+  - src: https://github.com/HauptJ/ansible-vault.git
+    name: ansible-community.ansible-vault
+    scm: git
+    version: HauptJ-patch-1

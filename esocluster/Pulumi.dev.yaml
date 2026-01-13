@@ -1,0 +1,27 @@
+config:
+  # DigitalOcean
+  digitalocean:token:
+    secure:
+  esocluster:doK8sRegion: nyc3
+  esocluster:doK8sSize: s-2vcpu-4gb
+  esocluster:doK8sVersion: 1.34.1-do.2
+  esocluster:doK8sAutoScale: true
+  esocluster:doK8sMinNodes: 2
+  esocluster:doK8sMaxNodes: 3
+  esocluster:doK8sCluterName: testCluster
+  esocluster:doK8sNodePoolName: testnodepool
+  esocluster:doK8sNodeSize: s-2vcpu-4gb
+  esocluster:doK8sClusterName: testcluster
+  esocluster:doK8sClusterLbEnabled: true
+  esocluster:doK8sLbSize: lb-small
+  esocluster:nginxHelmEnabled: true
+  #esocluster:nginxHelmVer: 4.14.1
+  esocluster:nginxHelmVer: 12.0.7
+  esocluster:esoHelmEnabled: true
+  esocluster:esoHelmVer: 1.1.1
+  # CloudFlare
+  esocluster:esoDnsEnabled: true
+  esocluster:cfDnsName:
+  cloudflare:apiToken:
+    secure:
+  esocluster:cfZoneId:

@@ -1,0 +1,29 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: pyesodemo
+  namespace: example
+  labels:
+    app: pyesodemo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pyesodemo
+  template:
+    metadata:
+      labels:
+        app: pyesodemo
+    spec:
+      containers:
+        - name: pyesodemo
+          image: docker.io/hauptj/pyesodemo:0.0.2
+          env:
+            - name: DEMO_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: pydemo-secret-ss
+                  key: DEMO_SECRET
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080

@@ -1,0 +1,50 @@
+- name: Install Vault Development Server
+  hosts: all
+  gather_facts: true
+  any_errors_fatal: true
+  become: true
+  become_user: root
+
+  vars:
+    fqdn: "{{ vault_fqdn }}"
+    #files_loc: "/root/certs/"
+    files_loc: "{{ vault_tls_loc_path }}"
+    vault_tls_path_conj: "{{ files_loc }}/{{ fqdn }}"
+    vault_tls_fullchain_file_conj: "ca.crt"
+    vault_tls_chain_file_conj: "{{ vault_tls_fullchain_file_conj }}"
+    vault_tls_cert_file_conj: "server.crt"
+    vault_tls_key_file_conj: "server.key"
+    vault_backend: file
+    vault_port: "{{ vault_rem_port }}"
+    #vault_user: root
+    vault_tls_disable: "{{ vault_rem_tls_disable }}"
+    vault_tls_src_files: "{{ vault_tls_path_conj }}"
+    vault_tls_certs_path: "/etc/vault/tls"
+    vault_tls_private_path: "{{ vault_tls_certs_path }}"
+    vault_tls_ca_file: "{{ vault_tls_fullchain_file_conj }}"
+    vault_tls_cert_file: "{{ vault_tls_cert_file_conj }}"
+    vault_tls_key_file: "{{ vault_tls_key_file_conj }}"
+    vault_api_addr: "https://{{ fqdn }}:{{ vault_port }}"
+    vault_disable_api_health_check: true
+    vault_token_out_file_path: "{{ vault_rem_token_out_file_path }}"
+    vault_enable_log: true
+    vault_log_level: debug
+
+    vault_tcp_listeners:
+      - vault_address: '[::]'
+        vault_port: "{{ vault_port }}"
+        vault_cluster_address: '[::]:8201'
+        vault_tls_disable: '{{ vault_tls_disable }}'
+        vault_tls_certs_path: '{{ vault_tls_certs_path }}'
+        vault_tls_private_path: '{{ vault_tls_private_path }}'
+        vault_tls_cert_file: '{{ vault_tls_cert_file }}'
+        vault_tls_key_file: '{{ vault_tls_key_file }}'
+        vault_tls_ca_file: '{{ vault_tls_ca_file }}'
+        vault_tls_min_version: '{{ vault_tls_min_version }}'
+        vault_tls_cipher_suites: '{{ vault_tls_cipher_suites }}'
+        vault_tls_require_and_verify_client_cert: '{{ vault_tls_require_and_verify_client_cert }}'
+        vault_tls_disable_client_certs: '{{ vault_tls_disable_client_certs }}'
+
+  roles:
+    - role: ansible-community.ansible-vault
+    - role: vault_token
