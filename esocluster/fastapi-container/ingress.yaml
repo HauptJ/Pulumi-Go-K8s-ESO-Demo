@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pyesodemo-ingress
+  namespace: example
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: dok8s.jnh.bz
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: pyesodemo
+                port:
+                  number: 80

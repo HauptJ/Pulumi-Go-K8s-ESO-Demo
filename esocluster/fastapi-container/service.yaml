@@ -1,0 +1,16 @@
+# Indicates this as a service
+kind: Service
+apiVersion: v1
+metadata:
+  # Service name
+  name: pyesodemo
+  namespace: example
+spec:
+  type: ClusterIP
+  selector:
+    # Selector for Pods
+    app: pyesodemo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

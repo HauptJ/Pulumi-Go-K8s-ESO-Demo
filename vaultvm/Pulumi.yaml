@@ -1,0 +1,4 @@
+name: vaultvm
+runtime: go
+description: A Dev HashiCorp Vault VM
+config:

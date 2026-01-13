@@ -1,0 +1,28 @@
+config:
+  # DigitalOcean
+  vaultvm:doVmImage: ubuntu-24-04-x64
+  vaultvm:doVmRegion: nyc3
+  vaultvm:doVmSize: s-2vcpu-4gb
+  vaultvm:doFirewallDisable: true
+  vaultvm:doFwWebIpRanges:
+    - ::/48
+  vaultvm:doPublicKeyHash:
+    secure:
+  vaultvm:doPrivateKeyPath:
+    secure:
+  vaultvm:doVmUser:
+    secure:
+  digitalocean:token:
+    secure:
+  # CloudFlare
+  vaultvm:cfDnsName: &fqdn
+  vaultvm:cfZoneId:
+    secure:
+  cloudflare:apiToken:
+    secure:
+  # HashiCorp Vault
+  vaultvm:vaultFqdn: *fqdn
+  vaultvm:vaultTlsDisable: false
+  vaultvm:vaultTlsPath: /home/
+  vaultvm:vaultTokenOutFilePath: /home//vault.txt
+  vaultvm:vaultPort: 8200
